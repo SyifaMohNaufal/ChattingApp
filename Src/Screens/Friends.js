@@ -140,8 +140,8 @@ export default class Friends extends React.Component {
           showsTraffic={true}
           region={this.state.mapRegion}
           initialRegion={{
-            latitude: -7.755322,
-            longitude: 110.381174,
+            latitude: -6.6204939,
+            longitude: 106.8185395,
             latitudeDelta: LATITUDE_DELTA,
             longitudeDelta: LONGITUDE_DELTA,
           }}>

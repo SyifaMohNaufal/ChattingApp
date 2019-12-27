@@ -6,6 +6,8 @@ import LoginScreen from './Screens/LoginScreen';
 import RegisterScreen from './Screens/RegisterScreen';
 import HomeScreen from './Screens/HomeScreen';
 import Chat from './Screens/Chat';
+import FriendProfile from './Screens/FriendProfile'
+import SplashScreen from './Screens/SplashScreen'
 
 import AppNavigator from './AppNavigator';
 
@@ -29,25 +31,15 @@ const AppStack = createStackNavigator(
         Chatting: {
           screen: Chat,
         },
+        FriendProfile: {
+          screen: FriendProfile
+        }
 },
 {
     initialRouteName: 'navi',
     headerMode: 'screen',
   },
 );
-
-// const ChatStack = createStackNavigator(
-//   {
-//     //   Friend: Contact,
-//     //   FriendProfile: Profile,
-//     Chat: Chat,
-//   },
-//   {
-//     defaultNavigationOptions: {
-//       header: null,
-//     },
-//   },
-// );
 
 const AuthStack = createStackNavigator({
   Login: LoginScreen,
@@ -57,13 +49,13 @@ const AuthStack = createStackNavigator({
 export default createAppContainer(
   createSwitchNavigator(
     {
+      Splash: SplashScreen,
       Loading: LoadingScreen,
       App: AppStack,
-    //   Chat: ChatStack,
       Auth: AuthStack,
     },
     {
-      initialRouteName: 'Loading',
+      initialRouteName: 'Splash',
     },
   ),
 );

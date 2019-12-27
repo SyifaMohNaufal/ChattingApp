@@ -103,8 +103,8 @@ export default class Profile extends React.Component {
     } else {
       ImagePicker.showImagePicker(options, response => {
         ToastAndroid.show(
-          'Rest asure, your photo is flying to the shiny cloud',
-          ToastAndroid.LONG,
+          'OIT!, take a seat, your photo is uploading',
+          ToastAndroid.SHORT,
         );
         let uploadBob = null;
         const imageRef = firebase
@@ -125,8 +125,8 @@ export default class Profile extends React.Component {
           })
           .then(url => {
             ToastAndroid.show(
-              'Your cool avatar is being uploaded, its going back to your phone now',
-              ToastAndroid.LONG,
+              'OIT!, your new avatar has been updated.',
+              ToastAndroid.SHORT,
             );
             firebase
               .database()
@@ -147,7 +147,7 @@ export default class Profile extends React.Component {
     const disabledStyle = uploading ? styles.disabledBtn : {};
     return (
       <SafeAreaView style={styles.container}>
-        <StatusBar backgroundColor="#8DBF8B" barStyle="dark-content" />
+        <StatusBar backgroundColor="#7db67b" barStyle="dark-content" />
         <ScrollView>
           <View
             style={{
@@ -186,9 +186,10 @@ export default class Profile extends React.Component {
                   marginBottom: -25,
                 }}
                 onPress={this.changeImage}>
-                <Image
-                  source={require('../../Public/assets/Icon/photoblack.png')}
+                <Icon name="add-a-photo" type="MaterialIcons"
                   style={{
+                    marginBottom: 5,
+                    marginRight: 5,
                     width: 25,
                     height: 25,
                   }}

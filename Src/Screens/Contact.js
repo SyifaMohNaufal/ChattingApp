@@ -23,7 +23,7 @@ export default class Contact extends Component {
   state = {
     userList: [],
     refreshing: false,
-    uid: '',
+    uid: null,
   };
 
   componentDidMount = async () => {
@@ -44,10 +44,10 @@ export default class Contact extends Component {
     return (
       <SafeAreaView style={{flex: 1}}>
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Chatting',{item})}
-        //   onLongPress={() =>
-        //     this.props.navigation.navigate('FriendProfile', {item})
-          >
+          onPress={() => this.props.navigation.navigate('Chatting', {item})}
+          onLongPress={() =>
+            this.props.navigation.navigate('FriendProfile', {item})
+          }>
           <View style={styles.row}>
             <Image source={{uri: item.photo}} style={styles.pic} />
             <View>
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   pic: {
-    borderRadius: 30,
+    borderRadius: 1000,
     width: 60,
     height: 60,
   },

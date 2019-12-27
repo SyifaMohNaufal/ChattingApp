@@ -141,11 +141,6 @@ export default class LoginScreen extends React.Component {
             // Alert.alert('Error Message', this.state.errorMessage);
         }
     }
-    //     firebase
-    //         .auth()
-    //         .signInWithEmailAndPassword(email, password)
-    //         .catch(error => this.setState({ errorMessage: error.message }));
-    // };
 
     render() {
         return (

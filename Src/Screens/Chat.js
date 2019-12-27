@@ -21,7 +21,7 @@ export default class Chat extends Component {
       title: navigation.getParam('item').name,
       headerStyle: {
         backgroundColor: '#8DBF8B',
-        height: 100,
+        height: 60,
       },
       headerTitleStyle: {
         color: 'white',
@@ -103,22 +103,12 @@ export default class Chat extends Component {
         {...props}
         wrapperStyle={{
           right: {
-            backgroundColor: '#8DBF8B',
+            backgroundColor: "#8bbfa3",
           },
         }}
       />
     );
   }
-
-  /// icon berganti saat input text
-  // renderSend = props => {
-  //   if (!props.text.trim()) {
-  //     // text box empty
-  //     return <Icon name="mic" color="#f48023" size={50} />;
-  //   }
-
-  //   return <Icon name="send" color="#f48023" size={50} />;
-  // };
 
   renderSend(props) {
     return (
@@ -139,8 +129,7 @@ export default class Chat extends Component {
 
   render() {
     return (
-      <View style={{flex: 1, backgroundColor: '#afd2ad'}}>
-        {/* <Header /> */}
+      <View style={{flex: 1, backgroundColor: '#111'}}>
         <GiftedChat
           renderSend={this.renderSend}
           renderBubble={this.renderBubble}
