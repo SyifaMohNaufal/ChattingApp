@@ -2,9 +2,9 @@ import {createAppContainer} from 'react-navigation';
 import React from 'react';
 import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 
-import Chat from './Screens/HomeScreen';
-import Friends from './Screens/Friends';
-import Profile from './Screens/Profile';
+import Chat from './Screens/Home/HomeScreen';
+import Friends from './Screens/Friends/Friends';
+import Profile from './Screens/Profile/Profile';
 
 const Navigator = createMaterialTopTabNavigator(
   {

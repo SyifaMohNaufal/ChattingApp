@@ -1,13 +1,13 @@
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
-import LoadingScreen from './Screens/LoadingScreen';
-import LoginScreen from './Screens/LoginScreen';
-import RegisterScreen from './Screens/RegisterScreen';
-import HomeScreen from './Screens/HomeScreen';
-import Chat from './Screens/Chat';
-import FriendProfile from './Screens/FriendProfile'
-import SplashScreen from './Screens/SplashScreen'
+import LoadingScreen from './Screens/Splash/LoadingScreen';
+import LoginScreen from './Screens/Authentication/LoginScreen';
+import RegisterScreen from './Screens/Authentication/RegisterScreen';
+import HomeScreen from './Screens/Home/HomeScreen';
+import Chat from './Screens/Home/Chat';
+import FriendProfile from './Screens/Friends/FriendProfile'
+import SplashScreen from './Screens/Splash/SplashScreen'
 
 import AppNavigator from './AppNavigator';
 

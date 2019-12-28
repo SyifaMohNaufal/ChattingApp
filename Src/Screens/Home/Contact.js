@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   },
   statusol: {
     fontWeight: '400',
-    color: '#f48023',
+    color: '#F09E56',
     fontSize: 12,
     marginLeft: 15,
   },
