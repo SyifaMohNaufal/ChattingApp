@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ToastAndroid, Image, StatusBar, Platform, PermissionsAndroid } from "react-native";
 import AsyncStorage from '@react-native-community/async-storage';
 import Geolocation from 'react-native-geolocation-service';
-import { Database, Auth } from '../config';
+import { Database, Auth } from '../../config';
 
 export default class LoginScreen extends React.Component {
     static navigationOptions={

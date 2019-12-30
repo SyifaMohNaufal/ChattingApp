@@ -10,7 +10,7 @@ import {
   PermissionsAndroid,
   Platform
 } from 'react-native';
-import {Database, Auth} from '../config';
+import {Database, Auth} from '../../config';
 import Geolocation from 'react-native-geolocation-service'
 
 class RegisterScreen extends Component {

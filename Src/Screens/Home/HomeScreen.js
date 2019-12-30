@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import {Database,Auth} from "../config"
+import {Database,Auth} from "../../config"
 import * as firebase from "firebase";
 import Contact from './Contact'
 export default class HomeScreen extends React.Component {

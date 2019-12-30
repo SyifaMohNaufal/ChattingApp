@@ -12,11 +12,11 @@ import {
   PermissionsAndroid,
   Dimensions,
 } from 'react-native';
-import {Icon} from 'native-base';
+import { Icon } from 'native-base';
 import SafeAreaView from 'react-native-safe-area-view';
 import * as firebase from 'firebase';
 import AsyncStorage from '@react-native-community/async-storage';
-import {Database, Auth} from '../config';
+import { Database, Auth } from '../../config';
 import ImagePicker from 'react-native-image-picker';
 import RNFetchBlob from 'rn-fetch-blob';
 
@@ -43,17 +43,17 @@ export default class Profile extends React.Component {
     const userName = await AsyncStorage.getItem('user.name');
     const userAvatar = await AsyncStorage.getItem('user.photo');
     const userEmail = await AsyncStorage.getItem('user.email');
-    this.setState({userId, userName, userAvatar, userEmail});
+    this.setState({ userId, userName, userAvatar, userEmail });
   };
 
   signOutUser = async () => {
     try {
-      Database.ref('user/' + Auth.currentUser.uid).update({status: 'Offline'});
+      Database.ref('user/' + Auth.currentUser.uid).update({ status: 'Offline' });
       await AsyncStorage.clear();
       Auth.signOut();
       ToastAndroid.show('Logout success', ToastAndroid.SHORT);
     } catch (error) {
-      this.setState({errorMessage: error.message});
+      this.setState({ errorMessage: error.message });
       ToastAndroid.show('logout error', ToastAndroid.SHORT);
       // Alert.alert('Error Message', this.state.errorMessage);
     }
@@ -113,11 +113,11 @@ export default class Profile extends React.Component {
           .child('photo');
         fs.readFile(response.path, 'base64')
           .then(data => {
-            return Blob.build(data, {type: `${response.mime};BASE64`});
+            return Blob.build(data, { type: `${response.mime};BASE64` });
           })
           .then(blob => {
             uploadBob = blob;
-            return imageRef.put(blob, {contentType: `${response.mime}`});
+            return imageRef.put(blob, { contentType: `${response.mime}` });
           })
           .then(() => {
             uploadBob.close();
@@ -131,8 +131,8 @@ export default class Profile extends React.Component {
             firebase
               .database()
               .ref('user/' + this.state.userId)
-              .update({photo: url});
-            this.setState({userAvatar: url});
+              .update({ photo: url });
+            this.setState({ userAvatar: url });
             AsyncStorage.setItem('user.photo', this.state.userAvatar);
           })
 
@@ -142,7 +142,7 @@ export default class Profile extends React.Component {
   };
 
   render() {
-    const {uploading} = this.state;
+    const { uploading } = this.state;
 
     const disabledStyle = uploading ? styles.disabledBtn : {};
     return (
@@ -159,72 +159,75 @@ export default class Profile extends React.Component {
               height: 200,
               justifyContent: 'flex-end',
             }}>
-            <ImageBackground
-              resizeMode="contain"
-              style={{
-                flexDirection: 'row',
-                width: '100%',
-                height: '100%',
-                alignItems: 'flex-end',
-                paddingLeft: 20,
-              }}
-              source={{
-                uri: this.state.userAvatar,
-              }}>
-              <TouchableOpacity
-                style={{
-                  right: 'auto',
-                  left: 250,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  backgroundColor: 'white',
-                  width: 50,
-                  height: 50,
-                  borderRadius: 25,
-                  borderColor: '#E5E7E9',
-                  borderWidth: 1,
-                  marginBottom: -25,
+            <View>
+              <Image
+                source={{
+                  uri: this.state.userAvatar,
                 }}
-                onPress={this.changeImage}>
-                <Icon name="add-a-photo" type="MaterialIcons"
-                  style={{
-                    marginBottom: 5,
-                    marginRight: 5,
-                    width: 25,
-                    height: 25,
-                  }}
-                />
-              </TouchableOpacity>
-            </ImageBackground>
+                style={{
+                  resizeMode: "cover",
+                  flexDirection: 'row',
+                  width: 150,
+                  height: 150,
+                  alignItems: 'flex-start',
+                  paddingLeft: 20,
+                  borderRadius: 100,
+                }} />
+            </View>
+            <TouchableOpacity
+              style={{
+                right: 'auto',
+                left: 100,
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: 'white',
+                width: 50,
+                height: 50,
+                borderRadius: 25,
+                borderColor: '#E5E7E9',
+                borderWidth: 1,
+                marginBottom: -25,
+              }}
+              onPress={this.changeImage}>
+              <Icon name="add-a-photo" type="MaterialIcons"
+                style={{
+                  marginBottom: 5,
+                  marginRight: 5,
+                  width: 25,
+                  height: 25,
+                }}
+              />
+            </TouchableOpacity>
           </View>
-          <View style={{marginHorizontal: 20}}>
-            <Text style={{color: '#8DBF8B', marginVertical: 10, fontSize: 22}}>
+
+          <View style={{ marginHorizontal: 20 }}>
+            <Text style={{ color: '#8DBF8B', marginVertical: 10, fontSize: 22 }}>
               Account
             </Text>
-            <Text style={{fontSize: 18}}>{this.state.userName}</Text>
-            <Text style={{fontSize: 12, color: '#99A3A4'}}>
+            <Text style={{ fontSize: 18 }}>{this.state.userName}</Text>
+            <Text style={{ fontSize: 12, color: '#99A3A4' }}>
               tap to change Profile Name
             </Text>
             <View style={styles.separator} />
-            <Text style={{fontSize: 18}}>{this.state.userEmail}</Text>
-            <Text style={{fontSize: 12, color: '#99A3A4'}}>Email</Text>
+            <Text style={{ fontSize: 18 }}>{this.state.userEmail}</Text>
+            <Text style={{ fontSize: 12, color: '#99A3A4' }}>Email</Text>
             <View style={styles.separator} />
-            <Text style={{fontSize: 18}}>Bio</Text>
-            <Text style={{fontSize: 12, color: '#99A3A4'}}>
+            <Text style={{ fontSize: 18 }}>Bio</Text>
+            <Text style={{ fontSize: 12, color: '#99A3A4' }}>
               Add a few words about yourself
             </Text>
           </View>
           <View style={styles.bigseparator} />
-          <View style={{marginHorizontal: 20}}>
-            <Text style={{color: '#8DBF8B', marginVertical: 10, fontSize: 22}}>
+          <View style={{ marginHorizontal: 20 }}>
+            <Text style={{ color: '#8DBF8B', marginVertical: 10, fontSize: 22 }}>
               Settings
             </Text>
             <View style={styles.separator} />
             <TouchableOpacity
-              style={{marginTop: 32, flexDirection: 'row'}}
+              style={{ marginTop: 32, flexDirection: 'row' }}
               onPress={this.signOutUser}>
               <Icon name="logout" type="SimpleLineIcons" />
-              <Text style={{fontSize: 16, paddingLeft: 20}}>LOGOUT</Text>
+              <Text style={{ fontSize: 16, paddingLeft: 20 }}>LOGOUT</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>

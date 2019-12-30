@@ -13,7 +13,7 @@ import {
 import MapView, {Marker} from 'react-native-maps';
 import AsyncStorage from '@react-native-community/async-storage';
 import Geolocation from 'react-native-geolocation-service';
-import {Database} from '../config';
+import {Database} from '../../config';
 import SafeAreaView from 'react-native-safe-area-view';
 
 const {width, height} = Dimensions.get('window');

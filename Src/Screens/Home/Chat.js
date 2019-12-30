@@ -11,7 +11,7 @@ import {
   SystemMessage,
   Send,
 } from 'react-native-gifted-chat';
-import {Database} from '../config';
+import {Database} from '../../config';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Bubble, Composer} from 'react-native-gifted-chat';
 
@@ -19,9 +19,13 @@ export default class Chat extends Component {
   static navigationOptions = ({navigation}) => {
     return {
       title: navigation.getParam('item').name,
+      headerTintColor: 'white',
       headerStyle: {
         backgroundColor: '#8DBF8B',
         height: 60,
+        borderBottomColor: 'white'
+      
+
       },
       headerTitleStyle: {
         color: 'white',
@@ -129,7 +133,7 @@ export default class Chat extends Component {
 
   render() {
     return (
-      <View style={{flex: 1, backgroundColor: '#111'}}>
+      <View style={{flex: 1, backgroundColor: '#888'}}>
         <GiftedChat
           renderSend={this.renderSend}
           renderBubble={this.renderBubble}

@@ -11,7 +11,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import {Database} from '../config';
+import {Database} from '../../config';
 
 export default class Contact extends Component {
   constructor(props) {
