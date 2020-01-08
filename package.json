@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.7.1",
+    "@react-native-community/google-signin": "^3.0.4",
     "firebase": "^7.6.1",
     "lodash": "^4.17.15",
     "native-base": "^2.13.8",

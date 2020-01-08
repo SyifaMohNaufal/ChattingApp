@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Database} from '../../config';
+import {auth} from 'firebase';
 
 export default class Contact extends Component {
   constructor(props) {
@@ -28,10 +29,12 @@ export default class Contact extends Component {
 
   componentDidMount = async () => {
     const uid = await AsyncStorage.getItem('userid');
+    const test = auth().currentUser.uid;
+    console.log(test);
     this.setState({uid: uid, refreshing: true});
     await Database.ref('/user').on('child_added', data => {
       let person = data.val();
-      if (person.id != uid) {
+      if (person.id != test) {
         this.setState(prevData => {
           return {userList: [...prevData.userList, person]};
         });

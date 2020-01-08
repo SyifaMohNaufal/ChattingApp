@@ -39,10 +39,11 @@ export default class Profile extends React.Component {
   };
 
   componentDidMount = async () => {
-    const userId = await AsyncStorage.getItem('userid');
-    const userName = await AsyncStorage.getItem('user.name');
-    const userAvatar = await AsyncStorage.getItem('user.photo');
-    const userEmail = await AsyncStorage.getItem('user.email');
+    const {uid, displayName, photoURL, email} = firebase.auth().currentUser
+    const userId = uid;
+    const userName = displayName;
+    const userAvatar = photoURL;
+    const userEmail = email;
     this.setState({ userId, userName, userAvatar, userEmail });
   };
 

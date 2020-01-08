@@ -8,15 +8,16 @@ import {
   ToastAndroid,
   Image,
   PermissionsAndroid,
-  Platform
+  Platform,
 } from 'react-native';
 import {Database, Auth} from '../../config';
-import Geolocation from 'react-native-geolocation-service'
+import Geolocation from 'react-native-geolocation-service';
+import * as firebase from 'firebase';
 
 class RegisterScreen extends Component {
-  static navigationOptions={
-    header: null
-}
+  static navigationOptions = {
+    header: null,
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -101,7 +102,7 @@ class RegisterScreen extends Component {
     });
   };
 
-  handleSignUp = () => {
+  handleSignUp = async () => {
     const {email, name, password} = this.state;
     if (name.length < 1) {
       ToastAndroid.show('Please input your fullname', ToastAndroid.LONG);
@@ -116,61 +117,57 @@ class RegisterScreen extends Component {
         ToastAndroid.LONG,
       );
     } else {
-      Auth.createUserWithEmailAndPassword(email, password)
-        .then(response => {
-          console.warn(response);
-          Database.ref('/user/' + response.user.uid)
-            .set({
-              name: this.state.name,
-              status: 'Offline',
-              email: this.state.email,
-              photo:
-                'https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/8_avatar-512.png',
-                latitude: this.state.latitude,
-                longitude: this.state.longitude,
-              id: response.user.uid,
-            })
-            .catch(error => {
-              ToastAndroid.show(error.message, ToastAndroid.LONG);
-              this.setState({
-                name: '',
-                email: '',
-                password: '',
-              });
-            });
-          ToastAndroid.show(
-            'Your account is successfully registered!',
-            ToastAndroid.LONG,
-          );
+      try {
+        const userCredentials = await firebase.auth().createUserWithEmailAndPassword(email, password)
+            if (userCredentials.user) {
+                console.log(userCredentials.user)
+                const dataUser = firebase.database().ref('/user/' + userCredentials.user.uid)
+                await dataUser.set({
+                    name: this.state.name,
+                    status: 'Online',
+                    email: this.state.email,
+                    photo: 'https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/8_avatar-512.png',
+                    latitude: this.state.latitude || null,
+                    longitude: this.state.longitude || null,
+                })
 
-          this.props.navigation.navigate('Login');
-        })
-        .catch(error => {
-          this.setState({
-            errorMessage: error.message,
-            name: '',
-            email: '',
-            password: '',
-          });
-          ToastAndroid.show(this.state.errorMessage.message, ToastAndroid.LONG);
+                await userCredentials.user.updateProfile({
+                    displayName: this.state.name,
+                    photoURL: 'https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/8_avatar-512.png',
+                }).then(async () => {
+                    await userCredentials.user.reload()
+                    console.log(firebase.auth().currentUser.displayName)
+                    firebase.auth().onAuthStateChanged(user => {
+                        this.props.navigation.navigate(user ? 'App' : 'Auth')
+                    })
+                })
+              }
+        
+      } catch (error) {
+        this.setState({
+          errorMessage: error.message,
+          name: '',
+          email: '',
+          password: '',
         });
-      // Alert.alert('Error Message', this.state.errorMessage);
-    }
-    // firebase
-    //     .auth()
-    //     .createUserWithEmailAndPassword(this.state.email, this.state.password)
-    //     .then(userCredentials => {
-    //         return userCredentials.user.updateProfile({
-    //             displayName: this.state.name
-    //         });
-    //     })
-    //     .catch(error => this.setState({ errorMessage: error.message }));
+        ToastAndroid.show(this.state.errorMessage.message, ToastAndroid.LONG);
+      }
+      
   };
+}
 
   render() {
     return (
       <View style={styles.container}>
-          <Image source = {require('./OIT!.png')} style={{width: 80, height: 80, alignSelf: 'center', marginVertical: 20}}/>
+        <Image
+          source={require('./OIT!.png')}
+          style={{
+            width: 80,
+            height: 80,
+            alignSelf: 'center',
+            marginVertical: 20,
+          }}
+        />
         <Text style={styles.greeting}>{'Sign up to get started.'}</Text>
 
         <View style={styles.errorMessage}>

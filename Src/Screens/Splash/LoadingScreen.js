@@ -1,11 +1,23 @@
 import React from "react";
 import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import * as firebase from "firebase";
+import {Database, Auth} from '../../config';
 
 export default class LoadingScreen extends React.Component {
+
     componentDidMount() {
+        
         firebase.auth().onAuthStateChanged(user => {
-            this.props.navigation.navigate(user ? "App" : "Auth");
+            console.log(user)
+            if (!user) {
+                this.props.navigation.navigate("Auth");
+            } else {
+                if (user.displayName) {
+                    this.props.navigation.navigate("App");
+                } else {
+                    console.log('masuk')
+                 } 
+            }
         });
     }
 
